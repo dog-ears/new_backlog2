@@ -1,10 +1,35 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { auth, signIn, signOut } from "@/lib/auth/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        {session?.user ? (
+          <>
+            <div>ようこそ。{session.user.name} さん</div>
+            <form
+              action={async () => {
+                "use server";
+                await signOut();
+              }}
+            >
+              <button type="submit">Sign Out</button>
+            </form>
+          </>
+        ) : (
+          <form
+            action={async () => {
+              "use server";
+              await signIn("google");
+            }}
+          >
+            <button type="submit">Signin with Google</button>
+          </form>
+        )}
+
         <Image
           className={styles.logo}
           src="/next.svg"
