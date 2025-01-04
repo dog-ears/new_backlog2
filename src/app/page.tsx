@@ -9,7 +9,7 @@ export default async function Home() {
   // ログイン関数
   const handleSignIn = async () => {
     "use server";
-    await signIn("google");
+    await signIn("google", { redirectTo: "/dashboard" });
   };
 
   // ログアウト関数
