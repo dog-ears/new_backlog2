@@ -1,8 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { Project } from "@prisma/client";
 import { Heading, Table, For } from "@chakra-ui/react";
 
+import { prisma } from "@/lib/prisma";
+
 export default async function ProjectsPage() {
-  const projects = await prisma.project.findMany();
+  const projects: Project[] = await prisma.project.findMany();
   return (
     <main>
       <Heading as="h1" size="xl">
