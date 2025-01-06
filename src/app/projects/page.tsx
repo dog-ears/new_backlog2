@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Project } from "@prisma/client";
 import { Heading, Table, For } from "@chakra-ui/react";
 
@@ -22,7 +23,9 @@ export default async function ProjectsPage() {
             {(project, index) => (
               <Table.Row key={index}>
                 <Table.Cell>{project.id}</Table.Cell>
-                <Table.Cell>{project.name}</Table.Cell>
+                <Table.Cell>
+                  <Link href={`/projects/${project.id}`}>{project.name}</Link>
+                </Table.Cell>
               </Table.Row>
             )}
           </For>
