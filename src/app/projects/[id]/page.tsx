@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Project } from "@prisma/client";
-import { Heading, Text } from "@chakra-ui/react";
 import { prisma } from "@/lib/prisma";
+import Detail from "@/components/models/project/Detail";
 
 type ParamsType = {
   params: Promise<{ id: string }>;
@@ -26,12 +26,5 @@ export default async function ProjectDetailPage({ params }: ParamsType) {
     return notFound();
   }
 
-  return (
-    <main>
-      <Heading as="h1" size="xl">
-        {project.name}
-      </Heading>
-      <Text>ID: {project.id}</Text>
-    </main>
-  );
+  return <Detail project={project} />;
 }
