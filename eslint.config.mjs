@@ -14,6 +14,9 @@ const eslintConfig = [
   ...compat.config({
     extends: ["next", "prettier"],
   }),
+  {
+    ignores: ["src/components/ui/**"], // 無視するパスを指定
+  },
 ];
 
 export default eslintConfig;
