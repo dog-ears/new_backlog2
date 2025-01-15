@@ -10,5 +10,5 @@ export default auth((req) => {
 
 // 認証を必要とするurlの定義
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/projects/:path*"],
 };
