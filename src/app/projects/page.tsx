@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { Project } from "@prisma/client";
 import { Heading, Table, For } from "@chakra-ui/react";
 
 import { prisma } from "@/lib/prisma";
 
 export default async function ProjectsPage() {
-  const projects: Project[] = await prisma.project.findMany();
+  const projects = await prisma.project.findMany({
+    include: {
+      owner: true, // オーナー情報を含める
+    },
+  });
   return (
     <main>
       <Heading as="h1" size="xl">
@@ -16,6 +19,7 @@ export default async function ProjectsPage() {
           <Table.Row>
             <Table.ColumnHeader>ID</Table.ColumnHeader>
             <Table.ColumnHeader>プロジェクト名</Table.ColumnHeader>
+            <Table.ColumnHeader>オーナー</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -26,6 +30,7 @@ export default async function ProjectsPage() {
                 <Table.Cell>
                   <Link href={`/projects/${project.id}`}>{project.name}</Link>
                 </Table.Cell>
+                <Table.Cell>{project.owner.name}</Table.Cell>
               </Table.Row>
             )}
           </For>

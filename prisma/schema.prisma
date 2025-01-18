@@ -17,6 +17,8 @@ model Project {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   createdAt DateTime @default(now())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
 }
 
 model User {
@@ -25,4 +27,6 @@ model User {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  ownedProjects Project[] // ユーザーが所有しているプロジェクト
 }

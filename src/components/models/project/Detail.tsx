@@ -1,11 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Project } from "@prisma/client";
+import { Project, User } from "@prisma/client";
 import * as projectActions from "@/actions/project/actions"; // インポート
 import { Heading, Text, Input, Button } from "@chakra-ui/react";
 
-export default function Detail({ project }: { project: Project }) {
+// Project 型を拡張して owner を含める
+type ProjectWithOwner = Project & {
+  owner: User;
+};
+
+export default function Detail({ project }: { project: ProjectWithOwner }) {
   const [projectEdited, setProjectEdited] = useState(project);
 
   // 保存時の処理
@@ -63,6 +68,7 @@ export default function Detail({ project }: { project: Project }) {
         </form>
       </Heading>
       <Text>ID: {project.id}</Text>
+      <Text>オーナー: {project.owner.name}</Text>
     </main>
   );
 }
